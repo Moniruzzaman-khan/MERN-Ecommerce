@@ -92,21 +92,21 @@ const AppNavBar = () => {
                         {
                             isLogin()?(
                                 <>
-                                    <Link to="/wish" type="button" className="btn btn-light ms-2 position-relative">
+                                    <Link to="/wish" type="button" className="btn btn-light ms-2 position-relative d-flex">
                                         <i className="bi text-dark bi-heart"></i>
                                         <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
                                             {WishCount}
                                             <span className="visually-hidden">unread message</span>
                                         </span>
                                     </Link>
-                                    <Link to="/cart" type="button" className="btn btn-light ms-2 position-relative">
+                                    <Link to="/cart" type="button" className="btn btn-light ms-2 position-relative d-flex">
                                         <i className="bi bi-cart"></i>
                                         <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
                                             {CartCount}
                                             <span className="visually-hidden">unread message</span>
                                         </span>
                                     </Link>
-                                    <Link to="/orders" type="button" className="btn btn-light ms-2">
+                                    <Link to="/orders" type="button" className="btn btn-light ms-2 d-flex">
                                         <i className="bi bi-truck"></i>
                                     </Link>
                                     <Link className="btn ms-3 btn-success d-flex" to="/profile" type="button">Profile</Link>
@@ -114,7 +114,7 @@ const AppNavBar = () => {
                                 </>
                             ):(
                                 <>
-                                    <Link className="btn ms-2 btn-light position-relative" to="/login" type="button">
+                                    <Link className="btn ms-2 btn-light position-relative d-flex" to="/login" type="button">
                                         <i className="bi bi-cart"></i>
                                     </Link>
                                     <Link className="btn ms-2 btn-light d-flex" to="/login" type="button">
