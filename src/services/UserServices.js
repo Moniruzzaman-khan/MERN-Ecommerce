@@ -42,9 +42,6 @@ const VerifyOTPService = async (req) => {
         let email = req.params.email;
         let otp = req.params.otp;
 
-        console.log("Email:", email);
-        console.log("OTP:", otp);
-
         let user = await UserModel.findOne({ email: email, otp: otp });
 
         if (user) {
@@ -58,7 +55,6 @@ const VerifyOTPService = async (req) => {
             return { status: "fail", message: "Invalid OTP" };
         }
     } catch (e) {
-        console.error("Error in VerifyOTPService:", e.message);
         return { status: "fail", message: "Something went wrong" };
     }
 }
