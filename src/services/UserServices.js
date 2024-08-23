@@ -18,22 +18,48 @@ const UserOTPService = async (req) => {
     }
 }
 
+// const VerifyOTPService = async (req) => {
+//     try{
+//         let email = req.params.email;
+//         let otp = req.params.otp;
+//         let total = await UserModel.find({email:email,otp:otp}).count('total');
+//         if(total===1){
+//             let user_id = await UserModel.find({email:email,otp:otp}).select('_id')
+//             let token = EncodeToken(email,user_id[0]['_id'].toString())
+
+//             await UserModel.updateOne({email:email},{$set:{otp:"0"}})
+//             return {status:"success", message:"Valid OTP",token:token}
+//         }else{
+//             return {status:"fail", message:"Invalid OTP"}
+//         }
+//     }catch (e) {
+//         return {status:"fail",message:"Invalid OTP"}
+//     }
+// }
+
 const VerifyOTPService = async (req) => {
-    try{
+    try {
         let email = req.params.email;
         let otp = req.params.otp;
-        let total = await UserModel.find({email:email,otp:otp}).count('total');
-        if(total===1){
-            let user_id = await UserModel.find({email:email,otp:otp}).select('_id')
-            let token = EncodeToken(email,user_id[0]['_id'].toString())
 
-            await UserModel.updateOne({email:email},{$set:{otp:"0"}})
-            return {status:"success", message:"Valid OTP",token:token}
-        }else{
-            return {status:"fail", message:"Invalid OTP"}
+        console.log("Email:", email);
+        console.log("OTP:", otp);
+
+        let user = await UserModel.findOne({ email: email, otp: otp });
+
+        if (user) {
+            let token = EncodeToken(email, user._id.toString());
+
+            // Invalidate the OTP by setting it to `null` or some unique identifier
+            await UserModel.updateOne({ email: email }, { $set: { otp: null } });
+
+            return { status: "success", message: "Valid OTP", token: token };
+        } else {
+            return { status: "fail", message: "Invalid OTP" };
         }
-    }catch (e) {
-        return {status:"fail",message:"Invalid OTP"}
+    } catch (e) {
+        console.error("Error in VerifyOTPService:", e.message);
+        return { status: "fail", message: "Something went wrong" };
     }
 }
 
