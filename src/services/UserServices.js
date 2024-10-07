@@ -48,7 +48,7 @@ const VerifyOTPService = async (req) => {
             let token = EncodeToken(email, user._id.toString());
 
             // Invalidate the OTP by setting it to `null` or some unique identifier
-            await UserModel.updateOne({ email: email }, { $set: { otp: null } });
+            await UserModel.updateOne({ email: email }, { $set: { otp: "0" } });
 
             return { status: "success", message: "Valid OTP", token: token };
         } else {
